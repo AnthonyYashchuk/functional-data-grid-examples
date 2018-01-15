@@ -15,7 +15,7 @@ class App extends Component {
                    initialSort={List([ new Sort('name', 'asc'), new Sort('premiered', 'asc') ])}
                    initialFilter={List()}
                    groups={List()}
-                   additionalStyle={{height: '500px', border: 'solid 1px #ccc', margin: '20px'}}
+                   additionalStyle={{height: '100%', border: 'solid 1px #ccc'}}
                  />
 
   getColumns = () => List([
@@ -88,7 +88,7 @@ class App extends Component {
     })
   ])
 
-  getData = () => List(shows)
+  getData = () => List(shows.concat(...shows).concat(...shows))
 }
 
 
