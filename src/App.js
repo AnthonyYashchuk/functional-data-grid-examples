@@ -46,7 +46,8 @@ class App extends Component {
       filterable : true,
       sortable : true,
       resizable : true,
-      locked: true
+      locked: true,
+      renderer : (v : string) => <div style={{textAlign: 'center'}}>{ v }</div>
     }),
     new BaseColumn({
       id : 'status',
@@ -55,7 +56,7 @@ class App extends Component {
       filterable : true,
       sortable : true,
       resizable : true,
-      renderer : (v : string) => <span style={{ color : v === 'Ended' ? '#F44336' : '#4CAF50' }}>{ v }</span>,
+      renderer : (v : string) => <div style={{ color : v === 'Ended' ? '#F44336' : '#4CAF50', textAlign: 'center' }}>{ v }</div>,
       locked : true
     }),
     new BaseColumn({
@@ -64,7 +65,8 @@ class App extends Component {
       valueGetter : (e) => e.language,
       filterable : true,
       sortable : true,
-      resizable : true
+      resizable : true,
+      renderer : (v : string) => <div style={{textAlign: 'center'}}>{ v }</div>
     }),
     new BaseColumn({
       id : 'premiered',
@@ -73,7 +75,7 @@ class App extends Component {
       filterable : true,
       sortable : true,
       resizable : true,
-      renderer: (v) => v.format('D MMMM YYYY'),
+      renderer : (v) => <div style={{textAlign: 'center'}}>{ v.format('D MMMM YYYY') }</div>,
       width: 150
     }),
     new BaseColumn({

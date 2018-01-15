@@ -10,6 +10,14 @@ html, body {
   height: 100%;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+a:link, a:visited, a:hover, a:active {
+  color: #03A9F4;
+}
+
 #root {
   height: 100%;
   padding: 20px;
