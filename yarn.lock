@@ -2706,9 +2706,9 @@ function-bind@^1.0.2, function-bind@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
 
-functional-data-grid@1.0.6:
-  version "1.0.6"
-  resolved "https://registry.npmjs.org/functional-data-grid/-/functional-data-grid-1.0.6.tgz#daca6c09350482d55f7a6d09e55ab99897cf258e"
+functional-data-grid@1.0.7:
+  version "1.0.7"
+  resolved "https://registry.npmjs.org/functional-data-grid/-/functional-data-grid-1.0.7.tgz#bb6f18f3e7920837508ebe10e456123fe8c179a5"
   dependencies:
     debounce "^1.0.2"
     debounce-promise "^3.0.1"
