@@ -1,11 +1,13 @@
 // @flow
 
-import React, { Component } from 'react';
-import './App.css';
-import FunctionalDataGrid, { BaseColumn, Group, Sort } from 'functional-data-grid'
+import React, { Component } from 'react'
+import './App.css'
+import FunctionalDataGrid, { BaseColumn, Group, Sort, utils} from 'functional-data-grid'
 import { List } from 'immutable'
 import shows from './resources/shows.json'
 import moment from 'moment'
+
+const AggregatesCalculators = utils.AggregatesCalculators
 
 class App extends Component {
 
@@ -14,8 +16,9 @@ class App extends Component {
                    data={this.getData()}
                    initialSort={List([ new Sort('name', 'asc'), new Sort('premiered', 'asc') ])}
                    initialFilter={List()}
-                   groups={List()}
+                   groups={this.getGroups()}
                    additionalStyle={{height: '100%', border: 'solid 1px #ccc'}}
+                   aggregatesCalculator={this.getAggregatesCalculator()}
                  />
 
   getColumns = () => List([
@@ -42,7 +45,7 @@ class App extends Component {
     new BaseColumn({
       id : 'type',
       title: 'Type',
-      valueGetter : (e) => e.type,
+      valueGetter : (e: Object, type: 'element' | 'aggregate') => type === 'element' ? e.type : e.key.type,
       filterable : true,
       sortable : true,
       resizable : true,
@@ -52,7 +55,7 @@ class App extends Component {
     new BaseColumn({
       id : 'status',
       title: 'Status',
-      valueGetter : (e) => e.status,
+      valueGetter : (e: Object, type: 'element' | 'aggregate') => type === 'element' ? e.status : e.key.status,
       filterable : true,
       sortable : true,
       resizable : true,
@@ -87,11 +90,37 @@ class App extends Component {
       sortable : true,
       resizable : true,
       width: 350
+    }),
+    new BaseColumn({
+      id : 'count',
+      title: 'Count',
+      valueGetter : (e: Object, type: 'element' | 'aggregate') => type === 'element' ? `` : `${e.content.count}`,
+      renderer : (v : number) => <div style={{textAlign: 'center'}}>{ v }</div>,
+      resizable : true,
+      width: 350
     })
   ])
+
+  getGroups = () => List([
+    new Group({
+      id: 'status',
+      groupingFunction: (e: Object) => e.status,
+      comparator: (a: K, b: K) => a === b ? 0 : (a: any) < (b: any) ? 1 : -1
+    }),
+    new Group({
+      id: 'type',
+      groupingFunction: (e: Object) => e.type
+    })
+  ])
+
+  getAggregatesCalculator = () => (elements: List<Object>) => {
+    return {
+      count: AggregatesCalculators.count(elements)
+    }
+  }
 
   getData = () => List(shows.concat(...shows).concat(...shows))
 }
 
 
-export default App;
+export default App
