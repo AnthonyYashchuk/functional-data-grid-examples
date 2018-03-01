@@ -45,7 +45,7 @@ class App extends Component {
     new BaseColumn({
       id : 'type',
       title: 'Type',
-      valueGetter : (e: Object, type: 'element' | 'aggregate') => type === 'element' ? e.type : e.key.type,
+      valueGetter : (e: Object) => e.type,
       filterable : true,
       sortable : true,
       resizable : true,
@@ -55,7 +55,7 @@ class App extends Component {
     new BaseColumn({
       id : 'status',
       title: 'Status',
-      valueGetter : (e: Object, type: 'element' | 'aggregate') => type === 'element' ? e.status : e.key.status,
+      valueGetter : (e: Object) => e.status,
       filterable : true,
       sortable : true,
       resizable : true,
@@ -94,8 +94,8 @@ class App extends Component {
     new BaseColumn({
       id : 'count',
       title: 'Count',
-      valueGetter : (e: Object, type: 'element' | 'aggregate') => type === 'element' ? `` : `${e.content.count}`,
-      renderer : (v : number) => <div style={{textAlign: 'center'}}>{ v }</div>,
+      aggregateValueGetter: (e: Object) => e.count,
+      renderer : (v) => <div style={{textAlign: 'center'}}><b>{v}</b></div>,
       resizable : true,
       width: 350
     })
@@ -104,11 +104,13 @@ class App extends Component {
   getGroups = () => List([
     new Group({
       id: 'status',
+      title: 'Status',
       groupingFunction: (e: Object) => e.status,
       comparator: (a: K, b: K) => a === b ? 0 : (a: any) < (b: any) ? 1 : -1
     }),
     new Group({
       id: 'type',
+      title: 'Type',
       groupingFunction: (e: Object) => e.type
     })
   ])
