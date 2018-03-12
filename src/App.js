@@ -17,7 +17,7 @@ class App extends Component {
                    initialSort={List([ new Sort('name', 'asc'), new Sort('premiered', 'asc') ])}
                    initialFilter={List()}
                    groups={this.getGroups()}
-                   additionalStyle={{height: '100%', border: 'solid 1px #ccc'}}
+                   style={{ grid: { height: '100%' }, group: { color: '#333', fontWeight: 'bold' }}}
                    aggregatesCalculator={this.getAggregatesCalculator()}
                  />
 
