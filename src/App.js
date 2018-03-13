@@ -2,12 +2,13 @@
 
 import React, { Component } from 'react'
 import './App.css'
-import FunctionalDataGrid, { BaseColumn, Group, Sort, utils} from 'functional-data-grid'
+import FunctionalDataGrid, { BaseColumn, Group, Sort, filterRenderers, utils} from 'functional-data-grid'
 import { List } from 'immutable'
 import shows from './resources/shows.json'
 import moment from 'moment'
 
 const AggregatesCalculators = utils.AggregatesCalculators
+const DatePickerFilter = filterRenderers.DatePickerFilter
 
 class App extends Component {
 
@@ -79,6 +80,7 @@ class App extends Component {
       sortable : true,
       resizable : true,
       renderer : (v) => <div style={{textAlign: 'center'}}>{ v.format('D MMMM YYYY') }</div>,
+      filterRenderer : (onUpdateFilter: Function) => <DatePickerFilter dateFormat={"YYYY/MM/DD"} onUpdateFilter={onUpdateFilter} />,
       width: 150
     }),
     new BaseColumn({

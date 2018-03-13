@@ -2706,9 +2706,9 @@ function-bind@^1.0.2, function-bind@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
 
-functional-data-grid@1.0.7:
-  version "1.0.7"
-  resolved "https://registry.npmjs.org/functional-data-grid/-/functional-data-grid-1.0.7.tgz#bb6f18f3e7920837508ebe10e456123fe8c179a5"
+functional-data-grid@1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/functional-data-grid/-/functional-data-grid-1.1.8.tgz#721d62f9f8430a99d1fa0eacc49a30eb21bedd7f"
   dependencies:
     debounce "^1.0.2"
     debounce-promise "^3.0.1"
@@ -2717,7 +2717,7 @@ functional-data-grid@1.0.7:
     moment "~2.20.1"
     prop-types "~15.6.0"
     react "~16.2.0"
-    react-datepicker "~0.64.0"
+    react-datepicker "1.2.2"
     react-dom "~16.2.0"
     react-select "~1.1.0"
     react-virtualized "~9.14.1"
@@ -4674,9 +4674,9 @@ pluralize@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-7.0.0.tgz#298b89df8b93b0221dbf421ad2b1b1ea23fc6777"
 
-popper.js@^1.12.5:
-  version "1.12.9"
-  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.12.9.tgz#0dfbc2dff96c451bb332edcfcfaaf566d331d5b3"
+popper.js@^1.12.9:
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.1.tgz#b8815e5cda6f62fc2042e47618649f75866e6753"
 
 portfinder@^1.0.9:
   version "1.0.13"
@@ -5152,14 +5152,14 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-datepicker@~0.64.0:
-  version "0.64.0"
-  resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-0.64.0.tgz#b2e1a7983ddc29ad78d82d5763a174cf33e68ee0"
+react-datepicker@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-1.2.2.tgz#7fb8d7e0f9de6a77a376291a4ccd45fdfe3ce3f5"
   dependencies:
     classnames "^2.2.5"
     prop-types "^15.6.0"
-    react-onclickoutside "^6.6.3"
-    react-popper "^0.7.4"
+    react-onclickoutside "^6.7.1"
+    react-popper "^0.8.2"
 
 react-dev-utils@^4.2.1:
   version "4.2.1"
@@ -5203,16 +5203,16 @@ react-input-autosize@^2.1.0:
   dependencies:
     prop-types "^15.5.8"
 
-react-onclickoutside@^6.6.3:
-  version "6.7.0"
-  resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-6.7.0.tgz#997a4d533114c9a0a104913638aa26afc084f75c"
+react-onclickoutside@^6.7.1:
+  version "6.7.1"
+  resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-6.7.1.tgz#6a5b5b8b4eae6b776259712c89c8a2b36b17be93"
 
-react-popper@^0.7.4:
-  version "0.7.5"
-  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-0.7.5.tgz#71c25946f291db381231281f6b95729e8b801596"
+react-popper@^0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-0.8.2.tgz#092095ff13933211d3856d9f325511ec3a42f12c"
   dependencies:
-    popper.js "^1.12.5"
-    prop-types "^15.5.10"
+    popper.js "^1.12.9"
+    prop-types "^15.6.0"
 
 react-scripts@1.0.17:
   version "1.0.17"
