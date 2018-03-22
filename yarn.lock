@@ -904,7 +904,7 @@ babel-register@^6.26.0:
     mkdirp "^0.5.1"
     source-map-support "^0.4.15"
 
-babel-runtime@6.26.0, babel-runtime@^6.18.0, babel-runtime@^6.22.0, babel-runtime@^6.23.0, babel-runtime@^6.26.0:
+babel-runtime@6.26.0, babel-runtime@^6.18.0, babel-runtime@^6.22.0, babel-runtime@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
   dependencies:
@@ -2706,21 +2706,18 @@ function-bind@^1.0.2, function-bind@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
 
-functional-data-grid@1.1.8:
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/functional-data-grid/-/functional-data-grid-1.1.8.tgz#721d62f9f8430a99d1fa0eacc49a30eb21bedd7f"
+functional-data-grid@1.1.10:
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/functional-data-grid/-/functional-data-grid-1.1.10.tgz#79517322e7bb7ac3a81c2023deeadb8d93e277b1"
   dependencies:
     debounce "^1.0.2"
     debounce-promise "^3.0.1"
     immutable "~3.8.2"
     lodash "^4.17.4"
     moment "~2.20.1"
-    prop-types "~15.6.0"
-    react "~16.2.0"
     react-datepicker "1.2.2"
-    react-dom "~16.2.0"
     react-select "~1.1.0"
-    react-virtualized "~9.14.1"
+    react-virtualized "^9.18.5"
 
 functional-red-black-tree@^1.0.1:
   version "1.0.1"
@@ -5028,7 +5025,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@~15.6.0:
+prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -5184,7 +5181,7 @@ react-dev-utils@^4.2.1:
     strip-ansi "3.0.1"
     text-table "0.2.0"
 
-react-dom@^16.2.0, react-dom@~16.2.0:
+react-dom@^16.2.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
   dependencies:
@@ -5265,17 +5262,17 @@ react-select@~1.1.0:
     prop-types "^15.5.8"
     react-input-autosize "^2.1.0"
 
-react-virtualized@~9.14.1:
-  version "9.14.1"
-  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-9.14.1.tgz#4d08385728e33e43205789b42c14e7a85b1cf2bd"
+react-virtualized@^9.18.5:
+  version "9.18.5"
+  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-9.18.5.tgz#42dd390ebaa7ea809bfcaf775d39872641679b89"
   dependencies:
-    babel-runtime "^6.23.0"
+    babel-runtime "^6.26.0"
     classnames "^2.2.3"
     dom-helpers "^2.4.0 || ^3.0.0"
     loose-envify "^1.3.0"
-    prop-types "^15.5.4"
+    prop-types "^15.6.0"
 
-react@^16.2.0, react@~16.2.0:
+react@^16.2.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
   dependencies:
