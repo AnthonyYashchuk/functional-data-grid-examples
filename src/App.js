@@ -8,6 +8,7 @@ import shows from './resources/shows.json'
 import moment from 'moment'
 
 const AggregatesCalculators = utils.AggregatesCalculators
+const SelectFilter = filterRenderers.SelectFilter
 const DatePickerFilter = filterRenderers.DatePickerFilter
 
 class App extends Component {
@@ -22,6 +23,10 @@ class App extends Component {
                    aggregatesCalculator={this.getAggregatesCalculator()}
                    enableColumnsVisibilityMenu={true}
                  />
+
+  getLanguageChoices = () => this.getData().map(e => e.language).toSet().toList().sort().map(e => [e, e])
+  getTypeChoices = () => this.getData().map(e => e.type).toSet().toList().sort().map(e => [e, e])
+  getStatusChoices = () => this.getData().map(e => e.status).toSet().toList().sort().map(e => [e, e])
 
   getColumns = () => List([
     new BaseColumn({
@@ -52,7 +57,8 @@ class App extends Component {
       sortable : true,
       resizable : true,
       locked: true,
-      renderer : (v : string) => <div style={{textAlign: 'center'}}>{ v }</div>
+      renderer : (v : string) => <div style={{textAlign: 'center'}}>{ v }</div>,
+      filterRenderer : (onUpdateFilter: Function) => <SelectFilter choices={this.getTypeChoices()} onUpdateFilter={onUpdateFilter} />,
     }),
     new BaseColumn({
       id : 'status',
@@ -62,6 +68,7 @@ class App extends Component {
       sortable : true,
       resizable : true,
       renderer : (v : string) => <div style={{ color : v === 'Ended' ? '#F44336' : '#4CAF50', textAlign: 'center' }}>{ v }</div>,
+      filterRenderer : (onUpdateFilter: Function) => <SelectFilter choices={this.getStatusChoices()} onUpdateFilter={onUpdateFilter} />,
       locked : true
     }),
     new BaseColumn({
@@ -71,7 +78,8 @@ class App extends Component {
       filterable : true,
       sortable : true,
       resizable : true,
-      renderer : (v : string) => <div style={{textAlign: 'center'}}>{ v }</div>
+      renderer : (v : string) => <div style={{textAlign: 'center'}}>{ v }</div>,
+      filterRenderer : (onUpdateFilter: Function) => <SelectFilter choices={this.getLanguageChoices()} onUpdateFilter={onUpdateFilter} />,
     }),
     new BaseColumn({
       id : 'premiered',
