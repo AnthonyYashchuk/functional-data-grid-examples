@@ -20,6 +20,7 @@ class App extends Component {
                    groups={this.getGroups()}
                    style={{ grid: { height: '100%' }, group: { color: '#333', fontWeight: 'bold' }}}
                    aggregatesCalculator={this.getAggregatesCalculator()}
+                   enableColumnsVisibilityMenu={true}
                  />
 
   getColumns = () => List([
