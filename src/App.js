@@ -22,6 +22,7 @@ class App extends Component {
                    style={{ grid: { height: '100%' }, group: { color: '#333', fontWeight: 'bold' }}}
                    aggregatesCalculator={this.getAggregatesCalculator()}
                    enableColumnsVisibilityMenu={true}
+                   rowHeight={(e, index, type) => type === 'element' ? 58 : 29}
                  />
 
   getLanguageChoices = () => this.getData().map(e => e.language).toSet().toList().sort().map(e => [e, e])
@@ -40,9 +41,21 @@ class App extends Component {
       locked: true
     }),
     new BaseColumn({
+      id : 'image',
+      title: 'Image',
+      valueGetter : (e) => e.image.medium,
+      renderer: (v: string) => <img src={v} alt="" style={{ maxHeight: '50px', verticalAlign: 'middle' }} />,
+      filterable : false,
+      sortable : false,
+      resizable : true,
+      width: 60,
+      locked: true
+    }),
+    new BaseColumn({
       id : 'name',
       title: 'Name',
       valueGetter : (e) => e.name,
+      renderer : (v, e) => <a href={ e.url } target={"blank"}>{ v }</a>,
       filterable : true,
       sortable : true,
       resizable : true,
@@ -56,7 +69,6 @@ class App extends Component {
       filterable : true,
       sortable : true,
       resizable : true,
-      locked: true,
       renderer : (v : string) => <div style={{textAlign: 'center'}}>{ v }</div>,
       filterRenderer : (onUpdateFilter: Function) => <SelectFilter choices={this.getTypeChoices()} onUpdateFilter={onUpdateFilter} />,
     }),
@@ -68,8 +80,7 @@ class App extends Component {
       sortable : true,
       resizable : true,
       renderer : (v : string) => <div style={{ color : v === 'Ended' ? '#F44336' : '#4CAF50', textAlign: 'center' }}>{ v }</div>,
-      filterRenderer : (onUpdateFilter: Function) => <SelectFilter choices={this.getStatusChoices()} onUpdateFilter={onUpdateFilter} />,
-      locked : true
+      filterRenderer : (onUpdateFilter: Function) => <SelectFilter choices={this.getStatusChoices()} onUpdateFilter={onUpdateFilter} />
     }),
     new BaseColumn({
       id : 'language',
@@ -93,14 +104,22 @@ class App extends Component {
       width: 150
     }),
     new BaseColumn({
-      id : 'url',
-      title: 'Url',
-      valueGetter : (e) => e.url,
-      renderer : (v) => <a href={ v } target={"blank"}>{ v }</a>,
+      id : 'summary',
+      title: 'Summary',
+      valueGetter : (e) => e.summary.replace(/<\/?[^>]+(>|$)/g, ""),
+      renderer: v => <i>{ v }</i>,
       filterable : true,
-      sortable : true,
       resizable : true,
-      width: 350
+      width: 800
+    }),
+    new BaseColumn({
+      id : 'rating',
+      title: 'Rating',
+      valueGetter: (e: Object) => e.rating.average,
+      renderer : (v) => <div style={{textAlign: 'center'}}><b>{v}</b></div>,
+      resizable : true,
+      locked: true,
+      width: 80
     }),
     new BaseColumn({
       id : 'count',
@@ -108,7 +127,8 @@ class App extends Component {
       aggregateValueGetter: (e: Object) => e.count,
       renderer : (v) => <div style={{textAlign: 'center'}}><b>{v}</b></div>,
       resizable : true,
-      width: 350
+      locked: true,
+      width: 80
     })
   ])
 
@@ -132,7 +152,7 @@ class App extends Component {
     }
   }
 
-  getData = () => List(shows.concat(...shows).concat(...shows))
+  getData = () => List(shows)
 }
 
 
