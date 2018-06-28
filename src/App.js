@@ -115,9 +115,11 @@ class App extends Component {
     new BaseColumn({
       id : 'rating',
       title: 'Rating',
+      aggregateValueGetter: (e: Object) => e.rating,
       valueGetter: (e: Object) => e.rating.average,
-      renderer : (v) => <div style={{textAlign: 'center'}}><b>{v}</b></div>,
+      renderer : (v) => v != null && <div style={{textAlign: 'center', color: this.getRatingColor(v)}}>{Math.round(v * 10) / 10}</div>,
       resizable : true,
+      sortable: true,
       locked: true,
       width: 80
     }),
@@ -148,11 +150,14 @@ class App extends Component {
 
   getAggregatesCalculator = () => (elements: List<Object>) => {
     return {
-      count: AggregatesCalculators.count(elements)
+      count: AggregatesCalculators.count(elements),
+      rating: elements.filter(e => e.rating.average != null).size == 0 ? null : AggregatesCalculators.average(elements.filter(e => e.rating.average != null).map(e => e.rating.average))
     }
   }
 
   getData = () => List(shows)
+
+  getRatingColor = (rating) => rating >= 6 ? '#4caf50' : '#F44336'
 }
 
 
