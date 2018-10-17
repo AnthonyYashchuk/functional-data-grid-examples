@@ -11,7 +11,7 @@ const AggregatesCalculators = utils.AggregatesCalculators
 const SelectFilter = filterRenderers.SelectFilter
 const DatePickerFilter = filterRenderers.DatePickerFilter
 
-class App extends Component {
+export default class App extends Component {
 
   render = () => <FunctionalDataGrid
                    columns={this.getColumns()}
@@ -21,7 +21,8 @@ class App extends Component {
                    groups={this.getGroups()}
                    style={{ grid: { height: '100%' }, group: { color: '#333', fontWeight: 'bold' }}}
                    aggregatesCalculator={this.getAggregatesCalculator()}
-                   enableColumnsVisibilityMenu={true}
+                   enableColumnsShowAndHide={true}
+                   enableColumnsSorting={true}
                    rowHeight={(e, index, type) => type === 'element' ? 58 : 29}
                  />
 
@@ -126,6 +127,7 @@ class App extends Component {
     new BaseColumn({
       id : 'count',
       title: 'Count',
+      valueGetter: (e: Object) => '',
       aggregateValueGetter: (e: Object) => e.count,
       renderer : (v) => <div style={{textAlign: 'center'}}><b>{v}</b></div>,
       resizable : true,
@@ -139,7 +141,7 @@ class App extends Component {
       id: 'status',
       title: 'Status',
       groupingFunction: (e: Object) => e.status,
-      comparator: (a: K, b: K) => a === b ? 0 : (a: any) < (b: any) ? 1 : -1
+      comparator: (a: any, b: any) => (a === b) ? 0 : ((a: any) < (b: any)) ? 1 : -1
     }),
     new Group({
       id: 'type',
@@ -151,7 +153,7 @@ class App extends Component {
   getAggregatesCalculator = () => (elements: List<Object>) => {
     return {
       count: AggregatesCalculators.count(elements),
-      rating: elements.filter(e => e.rating.average != null).size == 0 ? null : AggregatesCalculators.average(elements.filter(e => e.rating.average != null).map(e => e.rating.average))
+      rating: elements.filter(e => e.rating.average != null).size === 0 ? null : AggregatesCalculators.average(elements.filter(e => e.rating.average != null).map(e => e.rating.average))
     }
   }
 
@@ -159,6 +161,3 @@ class App extends Component {
 
   getRatingColor = (rating) => rating >= 6 ? '#4caf50' : '#F44336'
 }
-
-
-export default App
