@@ -4,9 +4,6 @@ import React, { Component } from 'react'
 import './App.css'
 import FunctionalDataGrid, { BaseColumn, Group, Sort, filterRenderers, utils} from 'functional-data-grid'
 import shows from './resources/shows.json'
-//import moment from 'moment'
-//import 'react-datepicker/dist/react-datepicker-cssmodules.css'
-//import DatePickerFilter from 'functional-data-grid/src/DatePickerFilter'
 
 const AggregatesCalculators = utils.AggregatesCalculators
 const SelectFilter = filterRenderers.SelectFilter
@@ -16,7 +13,7 @@ export default class App extends Component {
   render = () => <FunctionalDataGrid
                    columns={this.getColumns()}
                    data={this.getData()}
-                   initialSort={[ new Sort('name', 'asc'), /*new Sort('premiered', 'asc')*/ ]}
+                   initialSort={[ new Sort('name', 'asc') ]}
                    initialFilter={[]}
                    groups={this.getGroups()}
                    style={{ grid: { height: '100%' }, group: { color: '#333', fontWeight: 'bold' }}}
@@ -95,17 +92,6 @@ export default class App extends Component {
       renderer : (v : string) => <div style={{textAlign: 'center'}}>{ v }</div>,
       filterRenderer : (onUpdateFilter: Function) => <SelectFilter choices={this.getLanguageChoices()} onUpdateFilter={onUpdateFilter} />,
     }),
-    // new BaseColumn({
-    //   id : 'premiered',
-    //   title: 'Premiered',
-    //   valueGetter : (e) => moment(e.premiered),
-    //   filterable : true,
-    //   sortable : true,
-    //   resizable : true,
-    //   renderer : (v) => <div style={{textAlign: 'center'}}>{ v.format('D MMMM YYYY') }</div>,
-    //   filterRenderer : (onUpdateFilter: Function) => <DatePickerFilter dateFormat={"YYYY/MM/DD"} onUpdateFilter={onUpdateFilter} />,
-    //   width: 150
-    // }),
     new BaseColumn({
       id : 'summary',
       title: 'Summary',
