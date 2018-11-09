@@ -3,21 +3,21 @@
 import React, { Component } from 'react'
 import './App.css'
 import FunctionalDataGrid, { BaseColumn, Group, Sort, filterRenderers, utils} from 'functional-data-grid'
-import { List } from 'immutable'
 import shows from './resources/shows.json'
-import moment from 'moment'
+//import moment from 'moment'
+//import 'react-datepicker/dist/react-datepicker-cssmodules.css'
+//import DatePickerFilter from 'functional-data-grid/src/DatePickerFilter'
 
 const AggregatesCalculators = utils.AggregatesCalculators
 const SelectFilter = filterRenderers.SelectFilter
-const DatePickerFilter = filterRenderers.DatePickerFilter
 
 export default class App extends Component {
 
   render = () => <FunctionalDataGrid
                    columns={this.getColumns()}
                    data={this.getData()}
-                   initialSort={List([ new Sort('name', 'asc'), new Sort('premiered', 'asc') ])}
-                   initialFilter={List()}
+                   initialSort={[ new Sort('name', 'asc'), /*new Sort('premiered', 'asc')*/ ]}
+                   initialFilter={[]}
                    groups={this.getGroups()}
                    style={{ grid: { height: '100%' }, group: { color: '#333', fontWeight: 'bold' }}}
                    aggregatesCalculator={this.getAggregatesCalculator()}
@@ -26,11 +26,13 @@ export default class App extends Component {
                    rowHeight={(e, index, type) => type === 'element' ? 58 : 29}
                  />
 
-  getLanguageChoices = () => this.getData().map(e => e.language).toSet().toList().sort().map(e => [e, e])
-  getTypeChoices = () => this.getData().map(e => e.type).toSet().toList().sort().map(e => [e, e])
-  getStatusChoices = () => this.getData().map(e => e.status).toSet().toList().sort().map(e => [e, e])
+  getLanguageChoices = () => this.getData().map(e => e.language).filter(this.unique).sort().map(e => [e, e])
+  getTypeChoices = () => this.getData().map(e => e.type).filter(this.unique).sort().map(e => [e, e])
+  getStatusChoices = () => this.getData().map(e => e.status).filter(this.unique).sort().map(e => [e, e])
 
-  getColumns = () => List([
+  unique = (value, index, self) => self.indexOf(value) === index
+
+  getColumns = () => [
     new BaseColumn({
       id : 'id',
       title: 'Id',
@@ -93,17 +95,17 @@ export default class App extends Component {
       renderer : (v : string) => <div style={{textAlign: 'center'}}>{ v }</div>,
       filterRenderer : (onUpdateFilter: Function) => <SelectFilter choices={this.getLanguageChoices()} onUpdateFilter={onUpdateFilter} />,
     }),
-    new BaseColumn({
-      id : 'premiered',
-      title: 'Premiered',
-      valueGetter : (e) => moment(e.premiered),
-      filterable : true,
-      sortable : true,
-      resizable : true,
-      renderer : (v) => <div style={{textAlign: 'center'}}>{ v.format('D MMMM YYYY') }</div>,
-      filterRenderer : (onUpdateFilter: Function) => <DatePickerFilter dateFormat={"YYYY/MM/DD"} onUpdateFilter={onUpdateFilter} />,
-      width: 150
-    }),
+    // new BaseColumn({
+    //   id : 'premiered',
+    //   title: 'Premiered',
+    //   valueGetter : (e) => moment(e.premiered),
+    //   filterable : true,
+    //   sortable : true,
+    //   resizable : true,
+    //   renderer : (v) => <div style={{textAlign: 'center'}}>{ v.format('D MMMM YYYY') }</div>,
+    //   filterRenderer : (onUpdateFilter: Function) => <DatePickerFilter dateFormat={"YYYY/MM/DD"} onUpdateFilter={onUpdateFilter} />,
+    //   width: 150
+    // }),
     new BaseColumn({
       id : 'summary',
       title: 'Summary',
@@ -134,9 +136,9 @@ export default class App extends Component {
       locked: true,
       width: 80
     })
-  ])
+  ]
 
-  getGroups = () => List([
+  getGroups = () => [
     new Group({
       id: 'status',
       title: 'Status',
@@ -148,16 +150,16 @@ export default class App extends Component {
       title: 'Type',
       groupingFunction: (e: Object) => e.type
     })
-  ])
+  ]
 
-  getAggregatesCalculator = () => (elements: List<Object>) => {
+  getAggregatesCalculator = () => (elements: Array<Object>) => {
     return {
       count: AggregatesCalculators.count(elements),
       rating: elements.filter(e => e.rating.average != null).size === 0 ? null : AggregatesCalculators.average(elements.filter(e => e.rating.average != null).map(e => e.rating.average))
     }
   }
 
-  getData = () => List(shows)
+  getData = () => shows
 
   getRatingColor = (rating) => rating >= 6 ? '#4caf50' : '#F44336'
 }
