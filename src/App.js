@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import './App.css'
-import FunctionalDataGrid, { BaseColumn, Group, Sort, filterRenderers, utils} from 'functional-data-grid'
+import FunctionalDataGrid, { BaseColumn, Group, Sort, filterRenderers, utils, ColumnGroup} from 'functional-data-grid'
 import shows from './resources/shows.json'
 
 const AggregatesCalculators = utils.AggregatesCalculators
@@ -12,6 +12,7 @@ export default class App extends Component {
 
   render = () => <FunctionalDataGrid
                    columns={this.getColumns()}
+                   columnGroups={this.getColumnGroups()}
                    data={this.getData()}
                    initialSort={[ new Sort('name', 'asc') ]}
                    initialFilter={[]}
@@ -28,6 +29,21 @@ export default class App extends Component {
   getStatusChoices = () => this.getData().map(e => e.status).filter(this.unique).sort().map(e => [e, e])
 
   unique = (value, index, self) => self.indexOf(value) === index
+
+  getColumnGroups = () => [
+    new ColumnGroup({
+      id: 'group1',
+      title: 'Details'
+    }),
+    new ColumnGroup({
+      id: 'group2',
+      title: 'Extra details'
+    }),
+    new ColumnGroup({
+      id: 'totals',
+      title: 'Totals'
+    })
+  ]
 
   getColumns = () => [
     new BaseColumn({
@@ -71,6 +87,7 @@ export default class App extends Component {
       resizable : true,
       renderer : (v : string) => <div style={{textAlign: 'center'}}>{ v }</div>,
       filterRenderer : (onUpdateFilter: Function) => <SelectFilter choices={this.getTypeChoices()} onUpdateFilter={onUpdateFilter} />,
+      columnGroup: 'group1'
     }),
     new BaseColumn({
       id : 'status',
@@ -80,7 +97,8 @@ export default class App extends Component {
       sortable : true,
       resizable : true,
       renderer : (v : string) => <div style={{ color : v === 'Ended' ? '#F44336' : '#4CAF50', textAlign: 'center' }}>{ v }</div>,
-      filterRenderer : (onUpdateFilter: Function) => <SelectFilter choices={this.getStatusChoices()} onUpdateFilter={onUpdateFilter} />
+      filterRenderer : (onUpdateFilter: Function) => <SelectFilter choices={this.getStatusChoices()} onUpdateFilter={onUpdateFilter} />,
+      columnGroup: 'group1'
     }),
     new BaseColumn({
       id : 'language',
@@ -91,6 +109,7 @@ export default class App extends Component {
       resizable : true,
       renderer : (v : string) => <div style={{textAlign: 'center'}}>{ v }</div>,
       filterRenderer : (onUpdateFilter: Function) => <SelectFilter choices={this.getLanguageChoices()} onUpdateFilter={onUpdateFilter} />,
+      columnGroup: 'group2'
     }),
     new BaseColumn({
       id : 'summary',
@@ -99,7 +118,8 @@ export default class App extends Component {
       renderer: v => <i>{ v }</i>,
       filterable : true,
       resizable : true,
-      width: 800
+      width: 800,
+      columnGroup: 'group2'
     }),
     new BaseColumn({
       id : 'rating',
@@ -110,7 +130,8 @@ export default class App extends Component {
       resizable : true,
       sortable: true,
       locked: true,
-      width: 80
+      width: 80,
+      columnGroup: 'totals'
     }),
     new BaseColumn({
       id : 'count',
@@ -120,7 +141,8 @@ export default class App extends Component {
       renderer : (v) => <div style={{textAlign: 'center'}}><b>{v}</b></div>,
       resizable : true,
       locked: true,
-      width: 80
+      width: 80,
+      columnGroup: 'totals'
     })
   ]
 
