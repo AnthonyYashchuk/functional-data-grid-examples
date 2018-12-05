@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import './App.css'
-import FunctionalDataGrid, { BaseColumn, Group, Sort, filterRenderers, utils, ColumnGroup} from 'functional-data-grid'
+import FunctionalDataGrid, { Column, Group, Sort, filterRenderers, utils, ColumnGroup} from 'functional-data-grid'
 import shows from './resources/shows.json'
 
 const AggregatesCalculators = utils.AggregatesCalculators
@@ -17,7 +17,7 @@ export default class App extends Component {
                    initialSort={[ new Sort('name', 'asc') ]}
                    initialFilter={[]}
                    groups={this.getGroups()}
-                   style={{ grid: { height: '100%' }, group: { color: '#333', fontWeight: 'bold' }}}
+                   style={{ grid: { height: '100%' }, row: (row: Object) => row.type === 'group-header' ? { color: '#333', fontWeight: 'bold' } : {}}}
                    aggregatesCalculator={this.getAggregatesCalculator()}
                    enableColumnsShowAndHide={true}
                    enableColumnsSorting={true}
@@ -46,7 +46,7 @@ export default class App extends Component {
   ]
 
   getColumns = () => [
-    new BaseColumn({
+    new Column({
       id : 'id',
       title: 'Id',
       hidden: true,
@@ -56,7 +56,7 @@ export default class App extends Component {
       width: 20,
       locked: true
     }),
-    new BaseColumn({
+    new Column({
       id : 'image',
       title: 'Image',
       valueGetter : (e) => e.image.medium,
@@ -67,7 +67,7 @@ export default class App extends Component {
       width: 60,
       locked: true
     }),
-    new BaseColumn({
+    new Column({
       id : 'name',
       title: 'Name',
       valueGetter : (e) => e.name,
@@ -78,7 +78,7 @@ export default class App extends Component {
       width: 200,
       locked: true
     }),
-    new BaseColumn({
+    new Column({
       id : 'type',
       title: 'Type',
       valueGetter : (e: Object) => e.type,
@@ -89,7 +89,7 @@ export default class App extends Component {
       filterRenderer : (onUpdateFilter: Function) => <SelectFilter choices={this.getTypeChoices()} onUpdateFilter={onUpdateFilter} />,
       columnGroup: 'group1'
     }),
-    new BaseColumn({
+    new Column({
       id : 'status',
       title: 'Status',
       valueGetter : (e: Object) => e.status,
@@ -100,7 +100,7 @@ export default class App extends Component {
       filterRenderer : (onUpdateFilter: Function) => <SelectFilter choices={this.getStatusChoices()} onUpdateFilter={onUpdateFilter} />,
       columnGroup: 'group1'
     }),
-    new BaseColumn({
+    new Column({
       id : 'language',
       title: 'Language',
       valueGetter : (e) => e.language,
@@ -111,7 +111,7 @@ export default class App extends Component {
       filterRenderer : (onUpdateFilter: Function) => <SelectFilter choices={this.getLanguageChoices()} onUpdateFilter={onUpdateFilter} />,
       columnGroup: 'group2'
     }),
-    new BaseColumn({
+    new Column({
       id : 'summary',
       title: 'Summary',
       valueGetter : (e) => e.summary.replace(/<\/?[^>]+(>|$)/g, ""),
@@ -121,7 +121,7 @@ export default class App extends Component {
       width: 800,
       columnGroup: 'group2'
     }),
-    new BaseColumn({
+    new Column({
       id : 'rating',
       title: 'Rating',
       aggregateValueGetter: (e: Object) => e.rating,
@@ -133,7 +133,7 @@ export default class App extends Component {
       width: 80,
       columnGroup: 'totals'
     }),
-    new BaseColumn({
+    new Column({
       id : 'count',
       title: 'Count',
       valueGetter: (e: Object) => '',
